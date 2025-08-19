@@ -6,7 +6,7 @@ target/*
 .vscode/*
 afp_extractions/
 std_extractions/
-
+jars/
 *.ckpt
 data
 generated/

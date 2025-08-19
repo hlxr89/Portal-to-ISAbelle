@@ -48,9 +48,9 @@ class PisaEnv:
     def reset(self):
         self.stub = create_stub(port=self.port)
         try:
-            print(self.stub.InitialiseIsabelle(server_pb2.IsaPath(path=self.isa_path)).message)
-            print(self.stub.IsabelleWorkingDirectory(server_pb2.IsaPath(path=self.working_directory)).message)
-            print(self.stub.IsabelleContext(server_pb2.IsaContext(context=self.starter_string)).message)
+            self.stub.InitialiseIsabelle(server_pb2.IsaPath(path=self.isa_path)).message
+            self.stub.IsabelleWorkingDirectory(server_pb2.IsaPath(path=self.working_directory)).message
+            self.stub.IsabelleContext(server_pb2.IsaContext(context=self.starter_string)).message
             self.successful_starting = True
         except Exception as e:
             print("Failure at initialising Isabelle process.\n"
@@ -190,7 +190,7 @@ class PisaEnv:
         message = f"<accumulative_step_through_a_theorem>"
         return self.post(message)
 
-    @func_set_timeout(30, allowOverride=True)
+    @func_set_timeout(120, allowOverride=True)
     def step_to_top_level_state(self, action, tls_name, new_name):
         # last_obs_string = self.stub.IsabelleCommand(server_pb2.IsaCommand(command=f"<get state> {tls_name}")).state
         obs_string = "Step error"
